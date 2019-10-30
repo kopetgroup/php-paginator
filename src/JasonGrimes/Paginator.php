@@ -33,7 +33,7 @@ class Paginator
 
     protected function updateNumPages()
     {
-        $this->numPages = ($this->itemsPerPage == 0 ? 0 : (int) ceil($this->totalItems/$this->itemsPerPage));
+        $this->numPages = ($this->itemsPerPage == 0 ? 0 : (int) ceil($this->totalItems / $this->itemsPerPage));
     }
 
     /**
@@ -232,6 +232,9 @@ class Paginator
             if ($slidingEnd < $this->numPages - 1) {
                 $pages[] = $this->createPageEllipsis();
             }
+            if (isset($pages[0])) {
+                unset($pages[0]);
+            }
             $pages[] = $this->createPage($this->numPages, $this->currentPage == $this->numPages);
         }
 
@@ -281,7 +284,7 @@ class Paginator
 
         $html = '<ul class="pagination">';
         if ($this->getPrevUrl()) {
-            $html .= '<li><a href="' . htmlspecialchars($this->getPrevUrl()) . '">&laquo; '. $this->previousText .'</a></li>';
+            $html .= '<li><a href="' . htmlspecialchars($this->getPrevUrl()) . '">&laquo; ' . $this->previousText . '</a></li>';
         }
 
         foreach ($this->getPages() as $page) {
@@ -293,7 +296,7 @@ class Paginator
         }
 
         if ($this->getNextUrl()) {
-            $html .= '<li><a href="' . htmlspecialchars($this->getNextUrl()) . '">'. $this->nextText .' &raquo;</a></li>';
+            $html .= '<li><a href="' . htmlspecialchars($this->getNextUrl()) . '">' . $this->nextText . ' &raquo;</a></li>';
         }
         $html .= '</ul>';
 
